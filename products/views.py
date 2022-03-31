@@ -20,9 +20,15 @@ def products_list(request):
         else: 
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET'])
+@api_view(['GET','PUT'])
 def product_detail(request,pk):
     product = get_object_or_404(Product, pk = pk)
-    serializer = ProductSerializer(product)
-    return Response(serializer.data)
-    
+    if request.method == 'GET':
+        serializer = ProductSerializer(product)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = ProductSerializer(product, data = request.data)
+        if serializer.is_valid() == True:
+            serializer.save()
+            return Response(serializer.data)
+
