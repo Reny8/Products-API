@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Product
 from .serializers import ProductSerializer
+from django.shortcuts import get_object_or_404
 
 
 @api_view(['GET','POST'])
@@ -21,10 +22,7 @@ def products_list(request):
 
 @api_view(['GET'])
 def product_detail(request,pk):
-    # if it does not find a product with that primary key
-    try: 
-        product = Product.objects.get(pk = pk)
-        serializer = ProductSerializer(product)
-        return Response(serializer.data)
-    except Product.DoesNotExist:
-        return Response(status = status.HTTP_404_NOT_FOUND)
+    product = get_object_or_404(Product, pk = pk)
+    serializer = ProductSerializer(product)
+    return Response(serializer.data)
+    
