@@ -11,5 +11,5 @@ def reviews_list(request):
 
 @api_view(['GET'])
 def review_detail(request,fk):
-
+    
     return Response('review_detail test')
