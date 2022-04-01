@@ -1,12 +1,16 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from products.models import Product
+from reviews.models import Review
+from .serializers import ReviewSerializer
+from rest_framework import status
 # Create your views here.
 
 @api_view(['GET'])
 def reviews_list(request):
-    
-    return Response('review_list test')
+    if request.method == 'GET':
+        review = Review.objects.all()
+        serializer = ReviewSerializer(review,many = True)
+        return Response(serializer.data,status.HTTP_200_OK)
 
 
 @api_view(['GET'])
