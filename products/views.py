@@ -15,11 +15,9 @@ def products_list(request):
         return Response(serializer.data, status.HTTP_200_OK)
     elif request.method == 'POST':
         serializer = ProductSerializer(data = request.data)
-        if serializer.is_valid() == True:
+        if serializer.is_valid(raise_exception = True):
             serializer.save()
             return Response(serializer.data, status.HTTP_201_CREATED)
-        else: 
-            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET','PUT','DELETE','PATCH'])
 def product_detail(request,pk):
