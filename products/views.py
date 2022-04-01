@@ -36,9 +36,9 @@ def product_detail(request,pk):
         product.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
     elif request.method == 'PATCH':
-        # added a photo to the laptop product
-        if product.pk == 2:
-            product.description += 'Link: https://cdn.mos.cms.futurecdn.net/7WbSVGBMTEaXqu4XNVkX8N-768-80.jpg'
-            return Response(product.description)
-        else:
-            return Response(status = status.HTTP_400_BAD_REQUEST)
+        serializer = ProductSerializer(product,data = request.data, partial = True)
+        if serializer.is_valid(raise_exception = True):
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_202_ACCEPTED)
+
+        
