@@ -1,10 +1,15 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from products.models import Product
 # Create your views here.
 
 @api_view(['GET'])
-def create_a_review(request):
+def reviews_list(request):
     
-    return Response('test')
+    return Response('review_list test')
 
-# mirror the products functions
+
+@api_view(['GET'])
+def review_detail(request,fk):
+
+    return Response('review_detail test')
