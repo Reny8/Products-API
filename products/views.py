@@ -5,7 +5,7 @@ from rest_framework import status
 from .models import Product
 from .serializers import ProductSerializer
 from django.shortcuts import get_object_or_404
-from django.db import models
+
 
 @api_view(['GET','POST'])
 def products_list(request):
