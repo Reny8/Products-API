@@ -6,6 +6,7 @@ from .serializers import ProductSerializer
 from django.shortcuts import get_object_or_404
 
 
+
 @api_view(['GET','POST'])
 def products_list(request):
     if request.method == 'GET':
